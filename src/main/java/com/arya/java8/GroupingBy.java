@@ -1,5 +1,6 @@
 package com.arya.java8;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -7,6 +8,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
 
@@ -14,6 +16,10 @@ enum BlogPostType {
     NEWS,
     REVIEW,
     GUIDE
+}
+
+enum Tag {
+    FOOD, ENTERTAINMENT, TRAVEL, UTILITY
 }
 
 @Data
@@ -148,123 +154,41 @@ public class GroupingBy {
                 .collect(Collectors.groupingBy(Item::getPrice, Collectors.mapping(Item::getPrice, Collectors.toSet())));
         System.out.println("Case 15: " + case15);
 
+        // Case 16
+        Map<Integer, List<Integer>> case16 = Stream.of(1, 2, 3, 5, 4).collect(Collectors.groupingBy(i -> i % 2, Collectors.toList()));
+        System.out.println("Case 16: " + case16);
+
     }
+
 }
 
+@Data
 class BlogPost {
     String title;
     String author;
     BlogPostType type;
     int likes;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public BlogPostType getType() {
-        return type;
-    }
-
-    public void setType(BlogPostType type) {
-        this.type = type;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BlogPost blogPost = (BlogPost) o;
-        return likes == blogPost.likes &&
-                Objects.equals(title, blogPost.title) &&
-                Objects.equals(author, blogPost.author) &&
-                type == blogPost.type;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, author, type, likes);
-    }
 }
 
+@Data
+@AllArgsConstructor
 class Tuple {
     BlogPostType type;
     String author;
-
-    public Tuple(BlogPostType type, String author) {
-        this.type = type;
-        this.author = author;
-    }
-
-    public BlogPostType getType() {
-        return type;
-    }
-
-    public void setType(BlogPostType type) {
-        this.type = type;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 }
 
+@Data
+@AllArgsConstructor
 class Item {
-
     private String name;
     private int qty;
     private BigDecimal price;
+}
 
-    public Item(String name, int qty, BigDecimal price) {
-        this.name = name;
-        this.qty = qty;
-        this.price = price;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getQty() {
-        return qty;
-    }
-
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+@Data
+@AllArgsConstructor
+class Expense {
+    private final long amount;
+    private final int year;
+    private final List<Tag> tags;
 }

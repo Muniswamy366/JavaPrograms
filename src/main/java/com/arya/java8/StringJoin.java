@@ -2,6 +2,7 @@ package com.arya.java8;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class StringJoin {
     public static void main(String[] args) {
@@ -19,5 +20,13 @@ public class StringJoin {
         String[] typesOfCards = {"Credit card", "Debit card", "Master Card"};
         String case3 = String.join(":", payCompanies);
         System.out.println("Case 3: " + case3);
+
+        // Case 4
+        StringJoiner stringJoiner = new StringJoiner(",", "{", "}");
+        stringJoiner.add("one");
+        stringJoiner.add("two");
+        stringJoiner.add("three");
+        System.out.println("Case 4: " + stringJoiner.toString());
+
     }
 }
